@@ -63,7 +63,9 @@ def binary_search_iterative(a_list, item):
     return found, endTime
 
 
-def binary_search_recursive(a_list, item, startTime=time.time()):
+def binary_search_recursive(a_list, item, startTime=None):
+    if startTime is None:
+        startTime = time.time()
     if len(a_list) == 0:
         endTime = time.time() - startTime
         return False, endTime
@@ -83,13 +85,13 @@ if __name__ == "__main__":
     """Main entry point"""
     sizes = [500, 1000, 5000]
 
+for j in sizes:
     totalTime = {
         "binaryIterative": 0,
         "binaryRecursive": 0,
         "sequential": 0,
         "orderedSequential": 0,
     }
-for j in sizes:
     the_size = j
     for i in range(100):
         mylist = get_me_random_list(the_size)

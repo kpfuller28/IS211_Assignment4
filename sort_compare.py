@@ -18,7 +18,7 @@ def get_me_random_list(n):
 
 
 def insertion_sort(a_list):
-    startTime = time.time()
+    startTime = time.perf_counter()
     for index in range(1, len(a_list)):
         current_value = a_list[index]
         position = index
@@ -28,12 +28,12 @@ def insertion_sort(a_list):
             position = position - 1
 
         a_list[position] = current_value
-    endTime = time.time() - startTime
+    endTime = time.perf_counter() - startTime
     return endTime
 
 
 def shellSort(alist):
-    startTime = time.time()
+    startTime = time.perf_counter()
     sublistcount = len(alist) // 2
     while sublistcount > 0:
         for startposition in range(sublistcount):
@@ -42,7 +42,7 @@ def shellSort(alist):
         # print("After increments of size", sublistcount, "The list is", alist)
 
         sublistcount = sublistcount // 2
-    endTime = time.time() - startTime
+    endTime = time.perf_counter() - startTime
     return endTime
 
 
@@ -66,33 +66,30 @@ def python_sort(a_list):
     :param a_list:
     :return: the sorted list
     """
-    startTime = time.time()
+    startTime = time.perf_counter()
     sorted(a_list)
-    endTime = time.time() - startTime
+    endTime = time.perf_counter() - startTime
     return endTime
 
 
 if __name__ == "__main__":
     """Main entry point"""
     list_sizes = [500, 1000, 5000]
-    totalTimes = {
-        "pythonSort": 0,
-        "shell": 0,
-        "insertionSort": 0,
-    }
-
     for the_size in list_sizes:
+
+        totalTimes = {
+            "pythonSort": 0,
+            "shell": 0,
+            "insertionSort": 0,
+        }
         for i in range(100):
             myList = get_me_random_list(the_size)
 
-            check = python_sort(myList)
-            totalTimes["pythonSort"] += check
+            totalTimes["pythonSort"] += python_sort(myList.copy())
 
-            check = shellSort(myList)
-            totalTimes["shell"] += check
+            totalTimes["shell"] += shellSort(myList.copy())
 
-            check = insertion_sort(myList)
-            totalTimes["insertionSort"] += check
+            totalTimes["insertionSort"] += insertion_sort(myList.copy())
 
         averageTimes = {
             "pythonSort": totalTimes["pythonSort"] / 100,

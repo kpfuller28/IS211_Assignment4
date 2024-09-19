@@ -16,14 +16,14 @@ def get_me_random_list(n):
 def sequential_search(a_list, item):
     pos = 0
     found = False
-    startTime = time.time()
+    startTime = time.perf_counter()
 
     while pos < len(a_list) and not found:
         if a_list[pos] == item:
             found = True
         else:
             pos = pos + 1
-    endTime = time.time() - startTime
+    endTime = time.perf_counter() - startTime
     return found, endTime
 
 
@@ -31,7 +31,7 @@ def ordered_sequential_search(a_list, item):
     pos = 0
     found = False
     stop = False
-    startTime = time.time()
+    startTime = time.perf_counter()
     while pos < len(a_list) and not found and not stop:
         if a_list[pos] == item:
             found = True
@@ -40,13 +40,13 @@ def ordered_sequential_search(a_list, item):
                 stop = True
             else:
                 pos = pos + 1
-    endTime = time.time() - startTime
+    endTime = time.perf_counter() - startTime
     return found, endTime
 
 
 def binary_search_iterative(a_list, item):
     first = 0
-    startTime = time.time()
+    startTime = time.perf_counter()
 
     last = len(a_list) - 1
     found = False
@@ -59,20 +59,20 @@ def binary_search_iterative(a_list, item):
                 last = midpoint - 1
             else:
                 first = midpoint + 1
-    endTime = time.time() - startTime
+    endTime = time.perf_counter() - startTime
     return found, endTime
 
 
 def binary_search_recursive(a_list, item, startTime=None):
     if startTime is None:
-        startTime = time.time()
+        startTime = time.perf_counter()
     if len(a_list) == 0:
-        endTime = time.time() - startTime
+        endTime = time.perf_counter() - startTime
         return False, endTime
     else:
         midpoint = len(a_list) // 2
         if a_list[midpoint] == item:
-            endTime = time.time() - startTime
+            endTime = time.perf_counter() - startTime
             return True, endTime
         else:
             if item < a_list[midpoint]:
